@@ -1,0 +1,7 @@
+16:48:1 => [info] service_name:FiendServiceRpc
+16:48:1 => [info] method_name:GetFriendsList
+16:50:50 => [info] service_name:FiendServiceRpc
+16:50:50 => [info] method_name:GetFriendsList
+16:50:50 => [info] /data/MPRPC/src/rpcprovider.cc:Run:66 ---------------------------------
+23:57:9 => [info] service_name:FiendServiceRpc
+23:57:9 => [info] method_name:GetFriendsList

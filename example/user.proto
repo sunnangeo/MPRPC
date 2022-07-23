@@ -1,0 +1,42 @@
+syntax = "proto2";
+
+package fixbug;
+
+option cc_generic_services = true;
+
+message ResultCode
+{
+    optional int32 errcode = 1; 
+    optional bytes errmsg = 2;
+}
+
+message LoginRequest
+{
+    optional bytes name = 1;
+    optional bytes pwd = 2;
+}
+
+message LoginResponse
+{
+    optional ResultCode result = 1;
+    optional bool sucess = 2;
+}
+
+message RegisterRequest
+{
+    optional uint32 id = 1;
+    optional bytes name = 2;
+    optional bytes pwd = 3;
+}
+
+message RegisterResponse
+{
+    optional ResultCode result = 1;
+    optional bool sucess = 2;
+}
+
+service UserServiceRpc
+{
+    rpc Login(LoginRequest) returns(LoginResponse);
+    rpc Register(RegisterRequest) returns(RegisterResponse);
+}
