@@ -58,7 +58,7 @@ void MprpcProvider::Run() {
                 std::placeholders::_2, std::placeholders::_3));
 
   // 设置muduo库的线程数量
-  server.setThreadNum(4);
+  server.setThreadNum(2);
   // 把当前rpc节点上要发布的服务全部注册到zk上面，让rpc client可以从zk上发现服务
   // session timeout   30s     zkclient 网络I/O线程  1/3 * timeout 时间发送ping消息
   ZkClient zkCli;

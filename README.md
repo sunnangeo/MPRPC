@@ -47,7 +47,7 @@
 ## 三、RPC框架结构
 
 protobuf:
-1. 先写好.proto配置文件，然后command protoc --cpp_out = ./
+1. 先写好.proto配置文件，然后command protoc --cpp_out = ./ xxx.proto
 2. 再编译 g++ -std=c++11 *.cc -o a `pkg-config --cflags --libs protobuf`
 
 在rpc提供服务这一方，如何把本地的服务提供成rpc服务？

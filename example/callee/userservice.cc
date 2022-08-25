@@ -12,14 +12,14 @@ class UserService
     : public fixbug::UserServiceRpc  // 使用在rpc服务发布端（rpc服务提供者）
 {
  public:
-  bool Login(std::string name, std::string pwd) {
-    std::cout << "doing local service: Login" << std::endl;
+  bool login(std::string name, std::string pwd) {
+    std::cout << "doing local service: login" << std::endl;
     std::cout << "name:" << name << " pwd:" << pwd << std::endl;
     return false;
   }
-
-  bool Register(uint32_t id, std::string name, std::string pwd) {
-    std::cout << "doing local service: Register" << std::endl;
+  
+  bool regist(uint32_t id, std::string name, std::string pwd) {
+    std::cout << "doing local service: regist" << std::endl;
     std::cout << "id:" << id << "name:" << name << " pwd:" << pwd << std::endl;
     return true;
   }
@@ -29,16 +29,16 @@ class UserService
   1. caller   ===>   Login(LoginRequest)  => muduo =>   callee
   2. callee   ===>    Login(LoginRequest)  => 交到下面重写的这个Login方法上了
   */
-  void Login(::google::protobuf::RpcController* controller,
+  virtual void Login(::google::protobuf::RpcController* controller,
              const ::fixbug::LoginRequest* request,
              ::fixbug::LoginResponse* response,
-             ::google::protobuf::Closure* done) {
+             ::google::protobuf::Closure* done) override {
     // 框架给业务上报了请求参数LoginRequest，应用获取相应数据做本地业务
     std::string name = request->name();
     std::string pwd = request->pwd();
 
     // 做本地业务
-    bool login_result = Login(name, pwd);
+    bool login_result = login(name, pwd);
 
     // 把响应写入  包括错误码、错误消息、返回值
     fixbug::ResultCode* code = response->mutable_result();
@@ -50,15 +50,15 @@ class UserService
     done->Run();
   }
 
-  void Register(::google::protobuf::RpcController* controller,
+  virtual void Register(::google::protobuf::RpcController* controller,
                 const ::fixbug::RegisterRequest* request,
                 ::fixbug::RegisterResponse* response,
-                ::google::protobuf::Closure* done) {
+                ::google::protobuf::Closure* done) override {
     uint32_t id = request->id();
     std::string name = request->name();
     std::string pwd = request->pwd();
 
-    bool ret = Register(id, name, pwd);
+    bool ret = regist(id, name, pwd);
 
     response->mutable_result()->set_errcode(0);
     response->mutable_result()->set_errmsg("");
